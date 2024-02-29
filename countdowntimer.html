@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        #timer {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        button {
+            font-size: 1em;
+            padding: 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="timer">00:00:00</div>
+    <button onclick="startTimer()">Start</button>
+    <button onclick="stopTimer()">Stop</button>
+    <button onclick="resetTimer()">Reset</button>
+    <button onclick="restartTimer()">Restart</button>
+
+    <script>
+        let timer;
+        let time = 300; // Initial time in seconds
+
+        function startTimer() {
+            timer = setInterval(updateTimer, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timer);
+        }
+
+        function resetTimer() {
+            stopTimer();
+            time = 300; // Reset time to 300 seconds (5 minutes)
+            updateDisplay();
+        }
+
+        function restartTimer() {
+            resetTimer();
+            startTimer();
+        }
+
+        function updateTimer() {
+            if (time > 0) {
+                time--;
+                updateDisplay();
+            } else {
+                stopTimer();
+                alert("Time's up!");
+            }
+        }
+
+        function updateDisplay() {
+            const hours = Math.floor(time / 3600);
+            const minutes = Math.floor((time % 3600) / 60);
+            const seconds = time % 60;
+
+            document.getElementById('timer').innerText = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+        }
+
+        function formatTime(value) {
+            return value < 10 ? `0${value}` : value;
+        }
+    </script>
+
+</body>
+</html>
